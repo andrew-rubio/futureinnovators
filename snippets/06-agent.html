@@ -26,7 +26,7 @@
       const chat = document.getElementById('chat');
       const userInput = input.value.trim();
       if (!userInput) return;
-      chat.innerHTML += `<div style='margin-bottom:0.3rem;'><strong>You:</strong> ${userInput}</div>`;
+  chat.innerHTML += `<div style='margin-bottom:0.3rem; text-align:right;'><span style='background:#e0e7ff; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>You:</strong> ${userInput}</span></div>`;
       input.value = '';
       chat.scrollTop = chat.scrollHeight;
 
@@ -43,7 +43,7 @@
       });
 
       const data = await response.text();
-      chat.innerHTML += `<div style='margin-bottom:0.7rem;text-align:right;'><strong>Agent:</strong> ${simpleMarkdownToHtml(data)}</div>`;
+  chat.innerHTML += `<div style='margin-bottom:0.7rem; text-align:left;'><span style='background:#f3f4f6; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>Agent:</strong> ${simpleMarkdownToHtml(data)}</span></div>`;
       chat.scrollTop = chat.scrollHeight;
     }
   </script>
