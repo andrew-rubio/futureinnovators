@@ -23,57 +23,6 @@
     </nav>
   </header>
 
-  <!-- YOUR OWN AGENT CHAT SECTION -->
-  <section id="ai-chat" style="max-width:700px;width:100%;margin:2rem auto 3rem auto;padding:1.5rem;background:#f8fafc;border-radius:12px;box-shadow:0 2px 8px rgba(95,108,175,0.08);">
-    <h2 style="text-align:center;margin-bottom:1rem;">AI Chat</h2>
-    <div id="chat" style="height:400px;overflow-y:auto;background:#fff;border:1px solid #e0c3fc;border-radius:8px;padding:0.75rem 0.5rem 0.5rem 0.5rem;margin-bottom:0.75rem;font-size:1rem;color:#22223b;"></div>
-    <div style="display:flex;gap:0.5rem;">
-      <input id="user-input" type="text" placeholder="Type a message..." style="flex:1;padding:0.5rem;border-radius:6px;border:1px solid #5f6caf;font-size:1rem;" onkeydown="if(event.key==='Enter'){sendMessage()}" />
-      <button onclick="sendMessage()" style="background:#5f6caf;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:6px;font-weight:bold;cursor:pointer;">Send</button>
-    </div>
-  </section>
-  <script>
-    function simpleMarkdownToHtml(text) {
-      // Headings
-      text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-      text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-      text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-      // Bold (**text** or __text__)
-      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      text = text.replace(/__(.*?)__/g, '<strong>$1</strong>');
-      // Line breaks
-      text = text.replace(/\n/g, '<br>');
-      return text;
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('user-input');
-      const chat = document.getElementById('chat');
-      const userInput = input.value.trim();
-      if (!userInput) return;
-  chat.innerHTML += `<div style='margin-bottom:0.3rem; text-align:right;'><span style='background:#e0e7ff; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>You:</strong> ${userInput}</span></div>`;
-      input.value = '';
-      chat.scrollTop = chat.scrollHeight;
-
-      const response = await fetch('https://futureinnovators-aiagent.azurewebsites.net/api/CallOpenAI', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [
-            /* Update your system message below after the 'content' part */
-            { role: 'system', content: 'You are a helpful assistant.' },
-            { role: 'user', content: userInput }
-          ]
-        })
-      });
-
-      const data = await response.text();
-  chat.innerHTML += `<div style='margin-bottom:0.7rem; text-align:left;'><span style='background:#f3f4f6; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>Agent:</strong> ${simpleMarkdownToHtml(data)}</span></div>`;
-      chat.scrollTop = chat.scrollHeight;
-    }
-  </script>
-  <!-- AGENT CHAT SECTION END -->
-
   <main id="home" tabindex="-1">
     <section>
       <h2>Welcome</h2>
