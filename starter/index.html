@@ -51,66 +51,24 @@
       const chat = document.getElementById('chat');
       const userInput = input.value.trim();
       if (!userInput) return;
-      chat.innerHTML += `<div style='margin-bottom:0.3rem; text-align:right;'><span style='background:#e0e7ff; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>You:</strong> ${userInput}</span></div>`;
+  chat.innerHTML += `<div style='margin-bottom:0.3rem; text-align:right;'><span style='background:#e0e7ff; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>You:</strong> ${userInput}</span></div>`;
       input.value = '';
       chat.scrollTop = chat.scrollHeight;
 
-      let response;
-      try {
-        response = await fetch('https://futureinnovators-agentbackend.azurewebsites.net/api/CallOpenAI', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: [
-              /* Update your system message below after the 'content' part */
-              { role: 'system', content: 'You are a helpful assistant.' },
-              { role: 'user', content: userInput }
-            ]
-          })
-        });
-      } catch (err) {
-        chat.innerHTML += `<div style='margin-bottom:0.7rem; text-align:left;'><span style='background:#fee2e2; color:#7f1d1d; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>Agent:</strong> Network error. Please try again.</span></div>`;
-        chat.scrollTop = chat.scrollHeight;
-        return;
-      }
+      const response = await fetch('https://futureinnovators-agentbackend.azurewebsites.net/api/CallOpenAI', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            /* Update your system message below after the 'content' part */
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: userInput }
+          ]
+        })
+      });
 
-      // Insert an empty agent message placeholder immediately so users see a response area
-      const agentContainer = document.createElement('div');
-      agentContainer.style.marginBottom = '0.7rem';
-      agentContainer.style.textAlign = 'left';
-      agentContainer.innerHTML = `<span style='background:#f3f4f6; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>Agent:</strong> <span class="agent-content">...</span></span>`;
-      chat.appendChild(agentContainer);
-      const agentContent = agentContainer.querySelector('.agent-content');
-      chat.scrollTop = chat.scrollHeight;
-
-      // If the response body is streamable, read it in chunks and render progressively.
-      if (response.body && response.body.getReader) {
-        try {
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder();
-          let done = false;
-          let buffer = '';
-          while (!done) {
-            const { value, done: readerDone } = await reader.read();
-            done = readerDone;
-            if (value) {
-              buffer += decoder.decode(value, { stream: true });
-              // Update the agent content with converted markdown to HTML so tokens appear early
-              agentContent.innerHTML = simpleMarkdownToHtml(buffer);
-              chat.scrollTop = chat.scrollHeight;
-            }
-          }
-          // final decode (in case anything is left)
-          agentContent.innerHTML = simpleMarkdownToHtml(buffer);
-        } catch (err) {
-          agentContent.innerHTML = 'Error reading response.';
-        }
-      } else {
-        // Fallback: read entire response as text
-        const data = await response.text();
-        agentContent.innerHTML = simpleMarkdownToHtml(data);
-      }
-
+      const data = await response.text();
+  chat.innerHTML += `<div style='margin-bottom:0.7rem; text-align:left;'><span style='background:#f3f4f6; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>Agent:</strong> ${simpleMarkdownToHtml(data)}</span></div>`;
       chat.scrollTop = chat.scrollHeight;
     }
   </script>
