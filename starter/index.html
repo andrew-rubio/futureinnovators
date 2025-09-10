@@ -55,7 +55,7 @@
       input.value = '';
       chat.scrollTop = chat.scrollHeight;
 
-      const response = await fetch('https://futureinnovators-agentbackend.azurewebsites.net/api/CallOpenAI', {
+      const response = await fetch('https://futureinnovators-aiagent.azurewebsites.net/api/CallOpenAI', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
