@@ -1,4 +1,3 @@
-
 // Set the current year in the footer
 
 // Show/hide the menu on small screens
@@ -14,15 +13,31 @@ if (navBtn && menu) {
 const form = document.getElementById('contact-form');
 if (form) {
   form.addEventListener('submit', function (e) {
+    e.preventDefault(); // always prevent actual submit in this demo
     const name = document.getElementById('name');
     const email = document.getElementById('email');
     const message = document.getElementById('message');
     const status = document.querySelector('.form-status');
+
+    // basic validation
     if (!name.value || !email.value || !message.value) {
-      e.preventDefault();
       status.textContent = 'Please fill in all fields.';
-    } else {
-      status.textContent = 'Sending... (demo)';
+      status.classList.remove('sent');
+      return;
     }
+
+    // simulate sending
+    status.textContent = 'Sending... (demo)';
+    status.classList.remove('sent');
+
+    // simulate a network delay then show confirmation and clear inputs
+    setTimeout(() => {
+      status.textContent = 'Message sent! Thanks — we will reach out soon.';
+      status.classList.add('sent');
+      // clear inputs for a clean form
+      name.value = '';
+      email.value = '';
+      message.value = '';
+    }, 800);
   });
 }
