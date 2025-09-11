@@ -26,11 +26,25 @@
 
   <main id="home" tabindex="-1">
     <section>
-      <h2>Welcome</h2>
-      <p>Start building! Follow the lesson tasks to progressively enhance this page.</p>
+      <h2 class="welcome-header">Welcome</h2>
+      <p id="welcome-message">Start building! Follow the lesson tasks to progressively enhance this page.</p>
     </section>
     <section id="about">
       <h2>About</h2>
+
+      <div class="carousel" aria-roledescription="carousel">
+        <div class="carousel-track">
+          <div class="carousel-slide" tabindex="0"><img src="https://picsum.photos/1000/500?random=101" alt="Random stock image 1"></div>
+          <div class="carousel-slide" tabindex="0"><img src="https://picsum.photos/1000/500?random=202" alt="Random stock image 2"></div>
+          <div class="carousel-slide" tabindex="0"><img src="https://picsum.photos/1000/500?random=303" alt="Random stock image 3"></div>
+        </div>
+
+        <button class="carousel-btn prev" aria-label="Previous slide">&lt;</button>
+        <button class="carousel-btn next" aria-label="Next slide">&gt;</button>
+
+        <div class="carousel-dots" role="tablist" aria-label="Slide dots"></div>
+      </div>
+
       <p>Write a short bio here.</p>
       <!-- include lists here -->
       <h3>My Hobbies</h3>

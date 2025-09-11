@@ -5,13 +5,19 @@ body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
   color: #111;
-  background: #fff;
+  background: #bb2e2e;
   min-height: 100vh;
+}
+
+.welcome-header {
+  font-size: 100px; /* 100 pixels as requested */
+  line-height: 1.05; /* keep lines tight for large text */
+  color: #bb2e2e;
 }
 
 
 header, footer {
-  background: #111;
+  background: #0db3b3;
   color: #fff;
   padding: 1.5rem 1rem;
   text-align: center;
@@ -109,4 +115,61 @@ button:hover {
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
   display: inline-block;
+}
+
+/* Carousel styles */
+.carousel {
+  position: relative;
+  margin: 1rem 0;
+  overflow: hidden;
+  touch-action: pan-y; /* allow vertical scroll while supporting horizontal swipe */
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+.carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+.carousel-btn.prev { left: 8px; }
+.carousel-btn.next { right: 8px; }
+.carousel-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+}
+.carousel-dot.active { background: #111; }
+
+/* make large welcome header scale on small screens */
+@media (max-width: 700px) {
+  .welcome-header { font-size: 48px; }
 }

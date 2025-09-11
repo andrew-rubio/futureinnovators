@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Portfolio — Photography</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#home">My Portfolio</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-menu">☰</button>
+      <nav id="primary-menu" class="site-nav" aria-label="Primary navigation">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <h1>Photography Portfolio</h1>
+        <p>Selected projects and favorite shots. Click a project to view more.</p>
+        <!-- YOUR OWN AGENT CHAT SECTION -->
+  <section id="ai-chat" style="max-width:700px;width:100%;margin:2rem auto 3rem auto;padding:1.5rem;background:#f8fafc;border-radius:12px;box-shadow:0 2px 8px rgba(95,108,175,0.08);">
+    <h2 style="text-align:center;margin-bottom:1rem;">AI Chat</h2>
+    <div id="chat" style="height:400px;overflow-y:auto;background:#fff;border:1px solid #e0c3fc;border-radius:8px;padding:0.75rem 0.5rem 0.5rem 0.5rem;margin-bottom:0.75rem;font-size:1rem;color:#22223b;"></div>
+    <div style="display:flex;gap:0.5rem;">
+      <input id="user-input" type="text" placeholder="Type a message..." style="flex:1;padding:0.5rem;border-radius:6px;border:1px solid #5f6caf;font-size:1rem;" onkeydown="if(event.key==='Enter'){sendMessage()}" />
+      <button onclick="sendMessage()" style="background:#5f6caf;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:6px;font-weight:bold;cursor:pointer;">Send</button>
+    </div>
+  </section>
+  <script>
+    function simpleMarkdownToHtml(text) {
+      // Headings
+      text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+      // Bold (**text** or __text__)
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/__(.*?)__/g, '<strong>$1</strong>');
+      // Line breaks
+      text = text.replace(/\n/g, '<br>');
+      return text;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('user-input');
+      const chat = document.getElementById('chat');
+      const userInput = input.value.trim();
+      if (!userInput) return;
+  chat.innerHTML += `<div style='margin-bottom:0.3rem; text-align:right;'><span style='background:#e0e7ff; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>You:</strong> ${userInput}</span></div>`;
+      input.value = '';
+      chat.scrollTop = chat.scrollHeight;
+
+      const response = await fetch('https://futureinnovators-aiagent.azurewebsites.net/api/CallOpenAI', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            /* Update your system message below after the 'content' part */
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: userInput }
+          ]
+        })
+      });
+
+      const data = await response.text();
+  chat.innerHTML += `<div style='margin-bottom:0.7rem; text-align:left;'><span style='background:#f3f4f6; color:#22223b; padding:0.4em 0.9em; border-radius:16px; display:inline-block; max-width:80%; word-break:break-word;'><strong>Agent:</strong> ${simpleMarkdownToHtml(data)}</span></div>`;
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+  <!-- AGENT CHAT SECTION END -->
+      </div>
+    </section>
+
+    <section id="projects" class="projects container">
+      <h2>Photography Projects</h2>
+      <p class="lead">A selection of projects and featured images. Use this section to show galleries or project descriptions.</p>
+
+      <div class="grid">
+        <article class="card">
+          <img src="https://picsum.photos/600/400?random=11" alt="Project 1 photo">
+          <div class="card-body">
+            <h3>Urban Explorations</h3>
+            <p>Street photography and architectural studies.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://picsum.photos/600/400?random=22" alt="Project 2 photo">
+          <div class="card-body">
+            <h3>Nature & Landscapes</h3>
+            <p>Outdoor sessions and landscape panoramas.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://picsum.photos/600/400?random=33" alt="Project 3 photo">
+          <div class="card-body">
+            <h3>Portrait Series</h3>
+            <p>Portraits and studio lighting projects.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://picsum.photos/600/400?random=44" alt="Project 4 photo">
+          <div class="card-body">
+            <h3>Experimental</h3>
+            <p>Creative experiments and mixed techniques.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact container">
+      <h2>Contact</h2>
+      <p>If you'd like to work together, drop me a note.</p>
+      <form id="contact-form" class="contact-form">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="alt-contact">Or email directly: <a href="mailto:you@example.com">you@example.com</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; <span id="year"></span> My Portfolio</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

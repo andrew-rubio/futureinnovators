@@ -1,0 +1,30 @@
+/* Simple portfolio styles */
+:root{--accent:#0db3b3;--bg:#ffffff;--muted:#555}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#111;background:var(--bg)}
+.container{max-width:1000px;margin:0 auto;padding:1rem}
+.site-header{background:var(--accent);color:#fff}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem}
+.brand{font-weight:700;color:#fff;text-decoration:none}
+.nav-toggle{display:none;background:transparent;border:none;color:#fff;font-size:1.2rem}
+.site-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1rem}
+.site-nav a{color:#fff;text-decoration:none;padding:0.4rem 0.6rem;border-radius:6px}
+.site-nav a:hover{background:rgba(255,255,255,0.12)}
+.hero{padding:3rem 0;text-align:center;background:linear-gradient(180deg, #f8fafd, #fff)}
+.projects{padding:2rem 0}
+.projects .lead{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.card{background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.04)}
+.card img{width:100%;height:180px;object-fit:cover;display:block}
+.card-body{padding:0.8rem}
+.card-body h3{margin:0 0 0.4rem}
+.contact{padding:2rem 0}
+.contact-form{display:grid;gap:0.6rem;max-width:640px}
+.contact-form input,.contact-form textarea{padding:0.6rem;border:1px solid #ccc;border-radius:6px}
+.contact-form button{background:var(--accent);color:#fff;border:none;padding:0.6rem 1rem;border-radius:6px;cursor:pointer}
+.site-footer{padding:1rem 0;text-align:center;color:#666;border-top:1px solid #eee;margin-top:2rem}
+@media(max-width:720px){
+  .nav-toggle{display:inline-block}
+  .site-nav ul{flex-direction:column;background:rgba(0,0,0,0.04);position:absolute;right:1rem;top:64px;padding:0.5rem;border-radius:6px;display:none}
+  .site-nav ul.open{display:flex}
+}
