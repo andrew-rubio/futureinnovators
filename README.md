@@ -43,7 +43,9 @@ futureinnovators/
 4. Use `snippets/` only if you get stuck; try first on your own.
 
 ## Recommended Tools
-- **Editor**: VS Code with extensions: Live Server, Prettier, ESLint.
+- **Editor**: GitHub Codespaces, or VS Code with extensions: Live Server, Prettier, ESLint.
+- **AI Assistant**: GitHub Copilot.
+- **Web Hosting**: GitHub Pages (to render AI Agent), Python HTTP Local Server for quick testing.
 - **Browser**: Latest Chrome/Edge/Firefox.
 - **Accessibility**: Screen reader (NVDA/VoiceOver), browser devtools.
 
